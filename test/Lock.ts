@@ -1,3 +1,11 @@
+require('@nomicfoundation/hardhat-toolbox')
+
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+  solidity: '0.8.9',
+  paths: {  },
+  networks: {  },
+}
 import {
   time,
   loadFixture,
@@ -53,7 +61,7 @@ describe("Lock", function () {
       // We don't use the fixture here because we want a different deployment
       const latestTime = await time.latest();
       const Lock = await ethers.getContractFactory("Lock");
-      await expect(Lock.deploy(latestTime, { value: 1 })).to.be.revertedWith(
+      await expect(Lock.deploy(latestTime, { value: 1 })).to.be.rejectedWith(
         "Unlock time should be in the future"
       );
     });
@@ -64,7 +72,7 @@ describe("Lock", function () {
       it("Should revert with the right error if called too soon", async function () {
         const { lock } = await loadFixture(deployOneYearLockFixture);
 
-        await expect(lock.withdraw()).to.be.revertedWith(
+        await expect(lock.withdraw()).to.be.rejectedWith(
           "You can't withdraw yet"
         );
       });
@@ -78,7 +86,7 @@ describe("Lock", function () {
         await time.increaseTo(unlockTime);
 
         // We use lock.connect() to send a transaction from another account
-        await expect(lock.connect(otherAccount).withdraw()).to.be.revertedWith(
+        await expect(lock.connect(otherAccount).withdraw()).to.be.rejectedWith(
           "You aren't the owner"
         );
       });
@@ -91,7 +99,7 @@ describe("Lock", function () {
         // Transactions are sent using the first signer by default
         await time.increaseTo(unlockTime);
 
-        await expect(lock.withdraw()).not.to.be.reverted;
+        await expect(lock.withdraw()).not.to.be.rejected;
       });
     });
 

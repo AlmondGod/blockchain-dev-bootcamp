@@ -1,0 +1,15 @@
+{
+	"attributes" : [
+    	{
+        	"trait_type" : "Name",
+        	"value" : "Amon"
+    	},
+    	{
+        	"trait_type" : "Color",
+        	"value" : "Purple"
+    	}
+	],
+	"description" : "Amon",
+	"image" : "ipfs://QmfBudrnaa7K6GYFcTko1T5fzG6BtxJGhcjiJEDv4niHTP",
+	"name" : "AmonPurpleAkiraDevilmanCrybaby.jpg"
+}

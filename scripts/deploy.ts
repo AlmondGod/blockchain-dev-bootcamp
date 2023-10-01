@@ -1,6 +1,16 @@
 import { ethers } from "hardhat";
 
 async function main() {
+  // pennFT
+  const [deployer] = await ethers.getSigners();
+  console.log("Deploying contracts with the account:", deployer.address);
+
+  const PennFT = await ethers.getContractFactory("PennFT");
+  const pennFT = await PennFT.deploy();
+  console.log("PennFT contract deployed to:", pennFT.address);
+
+
+  // lock test
   const currentTimestampInSeconds = Math.round(Date.now() / 1000);
   const unlockTime = currentTimestampInSeconds + 60;
 
